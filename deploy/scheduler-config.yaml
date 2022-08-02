@@ -1,0 +1,22 @@
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+leaderElection:
+  leaderElect: true
+  leaseDuration: 15s
+  renewDeadline: 10s
+  resourceLock: leases
+  resourceName: sample-scheduler
+  resourceNamespace: kube-system
+  retryPeriod: 2s
+profiles:
+  - plugins:
+      preFilter:
+        enabled:
+        - name: "sample-scheduler"
+      filter:
+        enabled:
+        - name: "sample-scheduler"
+      preBind:
+        enabled:
+        - name: "sample-scheduler"
+    schedulerName: sample-scheduler
